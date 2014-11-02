@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/xml"
+	"errors"
 	"flag"
 	"fmt"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -16,8 +16,10 @@ const ENDPOINT = "https://api.wolframalpha.com/v2/query?appid=%s&input=%s&format
 var appId = os.Getenv("WOLFRAM_API_ID")
 
 type Result struct {
-	Name xml.Name `xml:"queryresult"`
-	Pods []Pod    `xml:"pod"`
+	Name    xml.Name `xml:"queryresult"`
+	Success bool     `xml:"success,attr"`
+	Pods    []Pod    `xml:"pod"`
+	Error   Err      `xml:"error"`
 }
 
 type Pod struct {
@@ -25,28 +27,42 @@ type Pod struct {
 	Entry []string `xml:"subpod>plaintext"`
 }
 
+type Err struct {
+	Code    int32  `xml:"code"`
+	Message string `xml:"msg"`
+}
+
 func main() {
 	flag.Parse()
 	query := strings.Join(flag.Args(), " ")
+
+	result, err := executeQuery(query)
+	if err != nil {
+		fmt.Printf("%s", err)
+		os.Exit(1)
+	}
+
+	displayResults(result)
+}
+
+func executeQuery(query string) (result *Result, error error) {
 	url := fmt.Sprintf(ENDPOINT, appId, url.QueryEscape(query))
-	fmt.Print(url + "\n")
 
 	resp, err := http.Get(url)
 	if err != nil {
-		fmt.Println(err.Error())
-		log.Panicln(err)
+		return nil, errors.New(fmt.Sprintf("Unexpected error fetching from Wolfram Alpha: %s", err))
 	}
 	defer resp.Body.Close()
 
 	decoder := xml.NewDecoder(resp.Body)
-	result := new(Result)
+	result = new(Result)
 	decoder.Decode(result)
 
-	if result == nil {
-		log.Fatalf("No results parsed!\n")
+	if resp.StatusCode != 200 || result == nil {
+		return nil, errors.New(fmt.Sprintf("Unexpected response from Wolfram Alpha. Status Code:%d", resp.StatusCode))
 	}
 
-	displayResults(result)
+	return result, nil
 }
 
 func displayResults(result *Result) {
