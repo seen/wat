@@ -42,7 +42,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	displayResults(result)
+	if result.Success {
+		displaySuccess(result)
+	} else {
+		displayError(result)
+	}
 }
 
 func executeQuery(query string) (result *Result, error error) {
@@ -65,7 +69,7 @@ func executeQuery(query string) (result *Result, error error) {
 	return result, nil
 }
 
-func displayResults(result *Result) {
+func displaySuccess(result *Result) {
 	for _, pod := range result.Pods {
 		fmt.Printf("%s\n", pod.Title)
 		for _, subpod := range pod.Entry {
@@ -73,4 +77,8 @@ func displayResults(result *Result) {
 		}
 		fmt.Printf("\n")
 	}
+}
+
+func displayError(result *Result) {
+	fmt.Printf("Error response from Wolfram Alpha: %s - Code %d\n", result.Error.Message, result.Error.Code)
 }
