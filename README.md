@@ -20,38 +20,33 @@ Usage Examples
 
 Epoch timestamps
 ```
-~ » wat 1415034693291 milliseconds                                                                                                                                                                                                                                           sean@phalanx
+~ » wat 1415034693291/1000 unix                                                                                        
 Input interpretation
-	1415034693291 ms  (milliseconds)
+	1415034693291/1000 (Unix time)
 
-Unit conversions
-	1.415×10^9 seconds
-	2.358×10^7 minutes
-	393065 hours
-	16378 days
-	44.84 average Gregorian years
+Corresponding Gregorian time and date
+	5:11:33 pm UTC  |  Monday, November 3, 2014
 
-Comparisons as period
-	 ~~ 0.27 × orbital period of Neptune (~~ 165 Julian years )
-	 ~~ 0.53 × orbital period of Uranus (~~ 84 Julian years )
-	 ~~ 1.5 × orbital period of Saturn (~~ 29 Julian years )
+Time difference from now (5:56:32 pm UTC)
+	44 minutes 60 seconds ago
+	2700 seconds ago
 
-Comparisons as half‐life
-	 ~~ 8.5 × half-life of cobalt-60 ( 1.6635×10^8 s )
-	 ~~ 17 × half-life of sodium-22 ( 8.2108×10^7 s )
+Time offset from PST
+	+8 hours
 
-Offsets from current time
-	1.415×10^12 ms  (milliseconds) from now | 2:25:26 am PDT  |  Saturday, September 6, 2059
-		1.415×10^12 ms  (milliseconds) before now | 4:02:19 pm PST  |  Wednesday, December 31, 1969
-
-Interpretations
-	time
-	period
+Clocks
+	Coordinated Universal Time
+	
+	5:11:33 pm  UTC
+	Monday, November 3               Portland, Oregon
+	
+	9:11:33 am  PST
+	Monday, November 3
 ```
 
 Byte conversions
 ```
-~ » wat 12346578 bytes                                                                                                                                                                                                                                                       sean@phalanx
+~ » wat 12346578 bytes                                                                                                 
 Input interpretation
 	12346578 bytes
 
