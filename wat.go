@@ -98,7 +98,7 @@ func displaySuccess(result *Result) {
 	for _, pod := range result.Pods {
 		fmt.Printf("%s\n", pod.Title)
 		for _, subpod := range pod.Entry {
-			fmt.Printf("\t%s\n", strings.Replace(subpod, "\n", "\n\t\t", -1))
+			fmt.Printf("\t%s\n", strings.Replace(subpod, "\n", "\n\t", -1))
 		}
 		fmt.Printf("\n")
 	}
