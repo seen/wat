@@ -12,6 +12,19 @@ import (
 )
 
 const ENDPOINT = "https://api.wolframalpha.com/v2/query?appid=%s&input=%s&format=plaintext"
+const USAGE = `wat - Wolfram Alpha command-line Tool
+
+wat is a command-line utility to more easily query Wolfram Alpha's API
+
+A Wolfram Alpha API key is required, and can be obtained from https://developer.wolframalpha.com
+The Wolfram Alpha API key is loaded from the 'WOLFRAM_API_ID' environment variable.
+
+Usage:
+    WOLFRAM_API_ID="<appid>" wat <query>
+  or
+    export WOLFRAM_API_ID="<appid>"
+    wat <query>
+`
 
 var appId = os.Getenv("WOLFRAM_API_ID")
 
@@ -36,10 +49,22 @@ func main() {
 	flag.Parse()
 	query := strings.Join(flag.Args(), " ")
 
+	if 0 >= len(appId) {
+		fmt.Printf("Must set WOLFRAM_API_ID env variable with API Key.\n\n")
+		fmt.Println(USAGE)
+		os.Exit(1)
+	}
+
+	if 0 >= len(query) {
+		fmt.Printf("query string must not be blank\n\n")
+		fmt.Println(USAGE)
+		os.Exit(2)
+	}
+
 	result, err := executeQuery(query)
 	if err != nil {
-		fmt.Printf("%s", err)
-		os.Exit(1)
+		fmt.Printf("%s\n", err)
+		os.Exit(3)
 	}
 
 	if result.Success {
