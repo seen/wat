@@ -4,11 +4,11 @@ wat - Wolfram Alpha command line Tool
 A simple command-line tool to query Wolfram Alpha's API
 
 Installation
-===
+---
 A simple go get will suffice: ```go get github.com/seen/wat```
 
 Configuration
-===
+---
 Wolfram Alpha requires an APP ID for querying it's API. You can
 get one here: https://developer.wolframalpha.com/
 
@@ -16,11 +16,11 @@ get one here: https://developer.wolframalpha.com/
 Set it with your APP ID from Wolfram Alpha and you're good to go!
 
 Usage Examples
-===
+---
 
 Epoch timestamps
 ```
-~ » wat 1415034693291/1000 unix                                                                                        
+~ » wat 1415034693291/1000 unix
 Input interpretation
 	1415034693291/1000 (Unix time)
 
@@ -36,17 +36,17 @@ Time offset from PST
 
 Clocks
 	Coordinated Universal Time
-	
+
 	5:11:33 pm  UTC
 	Monday, November 3               Portland, Oregon
-	
+
 	9:11:33 am  PST
 	Monday, November 3
 ```
 
 Byte conversions
 ```
-~ » wat 12346578 bytes                                                                                                 
+~ » wat 12346578 bytes
 Input interpretation
 	12346578 bytes
 
