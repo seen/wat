@@ -5,7 +5,7 @@ A simple command-line tool to query Wolfram Alpha's API
 
 Installation
 ===
-A simple go install will suffice: ```go install github.com/seen/wat```
+A simple go get will suffice: ```go get github.com/seen/wat```
 
 Configuration
 ===
